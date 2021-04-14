@@ -1,25 +1,88 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
 
 function App() {
+  let [currentUser, setCurrentUser] = React.useState(null)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div style={{ backgroundColor: 'lightgray' }}>
+          <Header/>
+        </div>
+        <div style={{ flex: 1 }}>
+          {currentUser ? (
+              <Dashboard>
+                <DashboardNav/>
+                <DashboardContent>
+                  <WelcomeMessage user={ currentUser }/>
+                </DashboardContent>
+              </Dashboard>
+              ) : (
+                  <LoginScreen onLogin = {() => setCurrentUser({ name: 'Michael' })}/>
+                  )}
+        </div>
+        <div style={{ backgroundColor: 'lightgray'}}>
+          <Footer/>
+        </div>
+      </div>
   );
+}
+
+function Header() {
+  return (
+      <div>
+        <h1>Header</h1>
+      </div>
+  )
+}
+
+function LoginScreen({ onLogin }) {
+  return (
+      <div>
+        <h3>Please Login</h3>
+        <button onClick={onLogin}>Login</button>
+      </div>
+  )
+}
+
+function Dashboard({ children }) {
+  return (
+      <div>
+        <h2>The Dashboard</h2>
+        {children}
+      </div>
+  )
+}
+
+function DashboardNav() {
+  return (
+      <div>
+        <h3>Dashboard Nar</h3>
+      </div>
+  )
+}
+function DashboardContent({children}) {
+  return (
+      <div>
+        <h3>Dashboard Content</h3>
+        {children}
+      </div>
+  )
+}
+
+function WelcomeMessage({ user }) {
+  return (
+      <div>
+        <p>Welcome {user.name}!</p>
+      </div>
+  )
+}
+
+function Footer() {
+  return (
+      <div>
+        <h1>Footer</h1>
+      </div>
+  )
 }
 
 export default App;
